@@ -97,25 +97,24 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         inputFormatters: widget.inputFormatters,
         textInputAction: widget.textInputAction,
         maxLines: widget.maxLine,
-        style: TextFontStyle.textStyle20RobotoW400
-            .copyWith(color: AppColors.c000000),
+        style:
+            TextFontStyle.textStyle16Roboto.copyWith(color: AppColors.c000000),
         cursorColor: AppColors.allPrimaryColor,
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.cF6F6F6,
           labelText: widget.labelText,
           hintText: widget.hintText,
-          hintStyle: TextFontStyle.textStyle16RobotoColorColorLight,
-          prefixIcon: widget.isPrefixIcon && widget.iconpath != null
+          hintStyle: TextFontStyle.textStyle16Roboto,
+          prefixIcon: widget.isPrefixIcon
               ? Padding(
                   padding: const EdgeInsets.only(left: 20, right: 12),
                   child: SvgPicture.asset(
                     widget.iconpath!,
                     width: 24,
-                    // color: _isFocused ? AppColors.cAEC671 : AppColors.c1E232C,
                   ),
                 )
-              : const SizedBox(),
+              : null,
           suffixIcon: widget.suffixIcon != null
               ? GestureDetector(
                   onTap: widget.onSuffixIconTap,
@@ -156,7 +155,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
           disabledBorder: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.width(0.8),
+              horizontal: SizeConfig.width(5),
               vertical: SizeConfig.height(1.8)),
         ),
       ),

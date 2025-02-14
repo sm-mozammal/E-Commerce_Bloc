@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:ecommerce_bloc/features/authentication/presentation/login_screen.dart';
+import 'package:ecommerce_bloc/features/product/presentation/product_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 final class Routes {
@@ -7,7 +8,7 @@ final class Routes {
   Routes._internal();
   static Routes get instance => _routes;
   static const String loginScreen = '/login';
-  static const String homeScreen = '/home_screen';
+  static const String productScreen = '/product_screen';
 }
 
 final class RouteGenerator {
@@ -22,6 +23,11 @@ final class RouteGenerator {
             ? _FadedTransitionRoute(
                 widget: const LoginScreen(), settings: settings)
             : CupertinoPageRoute(builder: (context) => const LoginScreen());
+      case Routes.productScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ProductScreen(), settings: settings)
+            : CupertinoPageRoute(builder: (context) => const ProductScreen());
 
       default:
         return null;

@@ -22,15 +22,9 @@ class TextFontStyle {
       fontSize: 16,
       fontWeight: FontWeight.w400);
 
-  static const textStyle16RobotoColorColorLight = TextStyle(
-      fontFamily: 'Roboto',
-      color: AppColors.cBABABA,
-      fontSize: 16,
-      fontWeight: FontWeight.w400);
-
   static const textStyle20RobotoW400 = TextStyle(
       fontFamily: 'Roboto',
-      color: AppColors.cBABABA,
+      color: AppColors.c000000,
       fontSize: 20,
       fontWeight: FontWeight.w400);
 

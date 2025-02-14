@@ -1,3 +1,4 @@
+import 'package:ecommerce_bloc/common_wigdets/loading_indicators.dart';
 import 'package:ecommerce_bloc/constants/app_colors.dart';
 import 'package:ecommerce_bloc/constants/text_font_style.dart';
 import 'package:ecommerce_bloc/helpers/responsive_utils.dart';
@@ -12,6 +13,7 @@ class CommonButton extends StatelessWidget {
   final double? height;
   final TextStyle? style;
   final double borderRadius;
+  final bool isLoading;
 
   const CommonButton({
     super.key,
@@ -22,7 +24,8 @@ class CommonButton extends StatelessWidget {
     this.width,
     this.height,
     this.style,
-    this.borderRadius = 100,
+    this.borderRadius = 8,
+    this.isLoading = false,
   });
 
   @override
@@ -39,10 +42,12 @@ class CommonButton extends StatelessWidget {
                   BorderSide(width: SizeConfig.width(0.1), color: borderColor)),
         ),
         onPressed: onPressed,
-        child: Text(text,
-            style: style ??
-                TextFontStyle.textStyle20RobotoW400.copyWith(
-                    fontWeight: FontWeight.w500, color: AppColors.cFFFFFF)),
+        child: isLoading
+            ? loadingIndicatorCircle(context: context)
+            : Text(text,
+                style: style ??
+                    TextFontStyle.textStyle20RobotoW400.copyWith(
+                        fontWeight: FontWeight.w500, color: AppColors.cFFFFFF)),
       ),
     );
   }
