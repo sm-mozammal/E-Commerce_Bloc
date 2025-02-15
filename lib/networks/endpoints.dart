@@ -18,7 +18,7 @@ final class Endpoints {
   //backend_url
   // App Url
 
-  static String signUp() => "/api/register";
+  static String product() => "fg-with-stock";
   static String logIn() => "login";
 
   // Customer API Url

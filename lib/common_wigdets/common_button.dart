@@ -1,4 +1,3 @@
-import 'package:ecommerce_bloc/common_wigdets/loading_indicators.dart';
 import 'package:ecommerce_bloc/constants/app_colors.dart';
 import 'package:ecommerce_bloc/constants/text_font_style.dart';
 import 'package:ecommerce_bloc/helpers/responsive_utils.dart';
@@ -43,7 +42,9 @@ class CommonButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: isLoading
-            ? loadingIndicatorCircle(context: context)
+            ? CircularProgressIndicator(
+                color: AppColors.cFFFFFF,
+              )
             : Text(text,
                 style: style ??
                     TextFontStyle.textStyle20RobotoW400.copyWith(
