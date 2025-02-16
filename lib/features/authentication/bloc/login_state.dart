@@ -29,3 +29,12 @@ class LoginError extends LoginState {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+class LogOutState extends LoginState {
+  final String message;
+
+  const LogOutState({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

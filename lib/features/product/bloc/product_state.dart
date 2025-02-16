@@ -22,6 +22,14 @@ class ProductFetchState extends ProductState {
   List<Object?> get props => [productResponse];
 }
 
+class ProductSearchState extends ProductState {
+  final List<ProductResponse> productResponse;
+  const ProductSearchState({required this.productResponse});
+
+  @override
+  List<Object?> get props => [productResponse];
+}
+
 class ProductErrorState extends ProductState {
   final String errorMessage;
   const ProductErrorState({required this.errorMessage});

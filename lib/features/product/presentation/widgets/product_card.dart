@@ -45,14 +45,14 @@ class _ProductCardState extends State<ProductCard> {
               height: SizeConfig.height(10),
               placeholder: (context, url) => shimmer(context: context),
             ),
-            UIHelper.verticalSpaceMedium,
+            UIHelper.verticalSpaceSmall,
             Text(
               widget.productName,
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-            UIHelper.verticalSpaceMedium,
+            UIHelper.verticalSpaceSmall,
             Row(
               children: [
                 Text(
@@ -76,7 +76,7 @@ class _ProductCardState extends State<ProductCard> {
                 ],
               ],
             ),
-            UIHelper.verticalSpaceMedium,
+            UIHelper.verticalSpaceSmall,
             quantity == 0
                 ? ElevatedButton(
                     onPressed: () {

@@ -16,3 +16,10 @@ class LogedInEvent extends LoginEvent {
   @override
   List<Object?> get props => [email, password];
 }
+
+class LogOutEvent extends LoginEvent {
+  const LogOutEvent();
+
+  @override
+  List<Object?> get props => [];
+}

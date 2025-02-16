@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto_animated/auto_animated.dart';
 import 'package:ecommerce_bloc/constants/app_colors.dart';
+import 'package:ecommerce_bloc/features/authentication/bloc/login_bloc.dart';
 import 'package:ecommerce_bloc/features/product/bloc/product_bloc.dart';
 import 'package:ecommerce_bloc/helpers/all_routes.dart';
 import 'package:ecommerce_bloc/loading_screen.dart';
@@ -80,6 +81,9 @@ class MobileLayout extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context) => ProductBloc()),
+        BlocProvider(
+          create: (BuildContext context) => LoginBloc(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(

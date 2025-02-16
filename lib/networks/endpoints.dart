@@ -20,6 +20,7 @@ final class Endpoints {
 
   static String product() => "fg-with-stock";
   static String logIn() => "login";
+  static String logout() => "logout";
 
   // Customer API Url
 }

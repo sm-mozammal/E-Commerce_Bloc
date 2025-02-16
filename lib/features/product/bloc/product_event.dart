@@ -13,3 +13,11 @@ class ProductFetchEvent extends ProductEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ProductSearchEvent extends ProductEvent {
+  final String queary;
+  const ProductSearchEvent(this.queary);
+
+  @override
+  List<Object?> get props => [queary];
+}

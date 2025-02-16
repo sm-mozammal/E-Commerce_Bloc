@@ -40,62 +40,59 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16),
-          child: BlocProvider(
-            create: (BuildContext context) => LoginBloc(),
-            child: Form(
-              key: _fromKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  UIHelper.verticalSpaceLarge,
-                  Image.asset(Assets.login),
-                  UIHelper.verticalSpaceMedium,
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'প্রবেশ করুন',
-                      style: TextFontStyle.textStyle20RobotoW400,
-                    ),
+          child: Form(
+            key: _fromKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                UIHelper.verticalSpaceLarge,
+                Image.asset(Assets.login),
+                UIHelper.verticalSpaceMedium,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'প্রবেশ করুন',
+                    style: TextFontStyle.textStyle20RobotoW400,
                   ),
-                  UIHelper.verticalSpaceMedium,
-                  // Email Input Field
-                  _buildEmailFiled(),
-                  UIHelper.verticalSpaceMedium,
+                ),
+                UIHelper.verticalSpaceMedium,
+                // Email Input Field
+                _buildEmailFiled(),
+                UIHelper.verticalSpaceMedium,
 
-                  // Password Input Field
-                  _buildPasswordField(),
-                  UIHelper.verticalSpaceMedium,
-                  BlocConsumer<LoginBloc, LoginState>(
-                      listener: (context, state) async {
-                    if (state is LoginLoading) {
-                      isLoading = true;
-                    }
-                    if (state is LoginSuccessfull) {
-                      isLoading = false;
-                      NavigationService.navigateToUntilReplacement(
-                          Routes.productScreen);
-                      ToastUtil.showLongToast(state.loginResponse.message!);
-                    }
-                    if (state is LoginError) {
-                      isLoading = false;
-                      ToastUtil.showLongToast(state.errorMessage);
-                    }
-                  }, builder: (context, state) {
-                    return CommonButton(
-                        isLoading: isLoading,
-                        text: 'Login',
-                        onPressed: () {
-                          if (_fromKey.currentState?.validate() ?? false) {
-                            _emailController.text;
-                            context.read<LoginBloc>().add(LogedInEvent(
-                                email: _emailController.text.trim(),
-                                password: _passwordController.text.trim()));
-                          }
-                        });
-                  })
-                ],
-              ),
+                // Password Input Field
+                _buildPasswordField(),
+                UIHelper.verticalSpaceMedium,
+                BlocConsumer<LoginBloc, LoginState>(
+                    listener: (context, state) async {
+                  if (state is LoginLoading) {
+                    isLoading = true;
+                  }
+                  if (state is LoginSuccessfull) {
+                    isLoading = false;
+                    NavigationService.navigateToUntilReplacement(
+                        Routes.productScreen);
+                    ToastUtil.showLongToast(state.loginResponse.message!);
+                  }
+                  if (state is LoginError) {
+                    isLoading = false;
+                    ToastUtil.showLongToast(state.errorMessage);
+                  }
+                }, builder: (context, state) {
+                  return CommonButton(
+                      isLoading: isLoading,
+                      text: 'Login',
+                      onPressed: () {
+                        if (_fromKey.currentState?.validate() ?? false) {
+                          _emailController.text;
+                          context.read<LoginBloc>().add(LogedInEvent(
+                              email: _emailController.text.trim(),
+                              password: _passwordController.text.trim()));
+                        }
+                      });
+                })
+              ],
             ),
           ),
         ),
