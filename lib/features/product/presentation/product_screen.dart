@@ -76,6 +76,11 @@ class _ProductScreenState extends State<ProductScreen> {
                     child: Text(state.errorMessage),
                   );
                 } else if (state is ProductFetchState) {
+                  if (state.productResponse.isEmpty) {
+                    return Center(
+                      child: Text('No Product Found'),
+                    );
+                  }
                   return GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
