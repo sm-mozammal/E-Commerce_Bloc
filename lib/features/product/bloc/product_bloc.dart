@@ -43,7 +43,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
   Future<void> searchProduct(
       ProductSearchEvent event, Emitter<ProductState> emit) async {
-    emit(ProductLoadingState());
+    // emit(ProductLoadingState());
     try {
       if (productResponse.isNotEmpty) {
         List<ProductResponse> filteredResponse = productResponse

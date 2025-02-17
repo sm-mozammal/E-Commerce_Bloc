@@ -1,4 +1,3 @@
-import 'package:ecommerce_bloc/common_wigdets/common_button.dart';
 import 'package:ecommerce_bloc/common_wigdets/custom_textfiled.dart';
 import 'package:ecommerce_bloc/common_wigdets/loading_indicators.dart';
 import 'package:ecommerce_bloc/features/authentication/bloc/login_bloc.dart';
@@ -6,9 +5,9 @@ import 'package:ecommerce_bloc/features/authentication/bloc/login_event.dart';
 import 'package:ecommerce_bloc/features/product/bloc/product_bloc.dart';
 import 'package:ecommerce_bloc/features/product/bloc/product_event.dart';
 import 'package:ecommerce_bloc/features/product/bloc/product_state.dart';
-import 'package:ecommerce_bloc/features/product/presentation/widgets/checkout_widget.dart';
+import 'package:ecommerce_bloc/features/product/presentation/widgets/bottomsheet_widget.dart';
 import 'package:ecommerce_bloc/features/product/presentation/widgets/product_card.dart';
-import 'package:ecommerce_bloc/helpers/responsive_utils.dart';
+import 'package:ecommerce_bloc/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -110,33 +109,14 @@ class _ProductScreenState extends State<ProductScreen> {
                   return loadingIndicatorCircle(context: context);
                 }
               }),
+              UIHelper.verticalSpaceLarge,
+              UIHelper.verticalSpaceLarge,
+              UIHelper.verticalSpaceLarge,
             ],
           ),
         ),
       ),
-      bottomSheet: Container(
-        height: SizeConfig.height(10),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CommonButton(
-                  height: SizeConfig.height(5),
-                  text: "Order Now",
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => CheckoutPopup(),
-                    );
-                  })
-            ],
-          ),
-        ),
-      ),
+      bottomSheet: BootomSheetwidget(),
     );
   }
 }
