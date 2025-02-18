@@ -86,18 +86,19 @@ class _ProductScreenState extends State<ProductScreen> {
                   return GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
+                    // scrollDirection: Axis.vertical,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 8.0,
                       mainAxisSpacing: 8.0,
-                      childAspectRatio: 0.7,
+                      childAspectRatio: 0.62,
                     ),
                     itemCount: state.productResponse.length,
                     itemBuilder: (context, index) {
                       final product = state.productResponse[index];
                       return ProductCard(
+                        pack: product.packSize ?? '',
                         productName: product.name ?? '',
                         price: product.price!,
                         imageUrl:

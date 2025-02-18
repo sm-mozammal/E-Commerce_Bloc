@@ -15,6 +15,7 @@ class BootomSheetwidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       height: SizeConfig.height(13),
       decoration: BoxDecoration(
           color: Colors.greenAccent,
@@ -44,7 +45,10 @@ class BootomSheetwidget extends StatelessWidget {
                   ),
                 );
               }
-              return SizedBox.shrink();
+              return Text(
+                "মোট:00.00",
+                style: TextFontStyle.textStyle16Roboto,
+              );
             }),
             CommonButton(
                 width: SizeConfig.width(80),

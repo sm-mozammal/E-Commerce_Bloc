@@ -10,6 +10,7 @@ import 'package:ecommerce_bloc/features/authentication/data/repository/logout_re
 import 'package:ecommerce_bloc/helpers/all_routes.dart';
 import 'package:ecommerce_bloc/helpers/di.dart';
 import 'package:ecommerce_bloc/helpers/navigation_service.dart';
+import 'package:ecommerce_bloc/helpers/toast.dart';
 import 'package:ecommerce_bloc/networks/dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,6 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await logoutRepo.logout();
       await appData.write(kKeyIsLoggedIn, false);
       await appData.remove(kKeyAccessToken);
+      ToastUtil.showLongToast('Successfully logged out');
       NavigationService.navigateToUntilReplacement(Routes.loginScreen);
       emit(LoginInitial());
     } catch (e) {
