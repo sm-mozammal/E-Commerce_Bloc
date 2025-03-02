@@ -159,6 +159,7 @@ class ProductCard extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
+            // Check Stoce
             int availableStock = int.parse(stockAQuantiy.split('.').first);
             if (quantity + 1 <= availableStock) {
               context.read<CartBloc>().add(UpdateCartQuantityEvent(
