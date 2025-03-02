@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final GlobalKey<FormState> _fromKey = GlobalKey<FormState>();
   bool isLoading = false;
+  bool isObsucure = false;
 
   @override
   void dispose() {
@@ -102,6 +103,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   CustomTextFormField _buildPasswordField() {
     return CustomTextFormField(
+        obscureText: !isObsucure,
+        suffixIcon: isObsucure ? Icons.visibility : Icons.visibility_off,
+        onSuffixIconTap: () {
+          setState(() {
+            isObsucure = !isObsucure;
+          });
+        },
         controller: _passwordController,
         isPrefixIcon: false,
         labelText: 'Password',

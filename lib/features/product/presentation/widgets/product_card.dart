@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:ecommerce_bloc/features/checkout/bloc/checkout_bloc.dart';
 import 'package:ecommerce_bloc/features/checkout/bloc/checkout_event.dart';
 import 'package:ecommerce_bloc/features/checkout/bloc/checkout_state.dart';
+import 'package:ecommerce_bloc/helpers/toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_bloc/common_wigdets/loading_indicators.dart';
@@ -15,6 +18,7 @@ class ProductCard extends StatelessWidget {
   final String price;
   final int? originalPrice;
   final String imageUrl;
+  final String stockAQuantiy;
 
   const ProductCard({
     super.key,
@@ -23,6 +27,7 @@ class ProductCard extends StatelessWidget {
     this.originalPrice,
     required this.imageUrl,
     required this.pack,
+    required this.stockAQuantiy,
   });
 
   @override
@@ -64,6 +69,15 @@ class ProductCard extends StatelessWidget {
               ),
               UIHelper.verticalSpaceSmall,
 
+              Text(
+                'SQ: $stockAQuantiy',
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              UIHelper.verticalSpaceSmall,
+
               BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
                   int quantity = 0;
@@ -72,6 +86,7 @@ class ProductCard extends StatelessWidget {
                     final item = state.cartItems.firstWhere(
                         (item) => item.productName == productName,
                         orElse: () => CartItem(
+                            stockQuantity: stockAQuantiy,
                             productName: productName,
                             price: price,
                             imageUrl: imageUrl,
@@ -79,9 +94,11 @@ class ProductCard extends StatelessWidget {
                     quantity = item.quantity;
                   }
 
-                  return quantity == 0
-                      ? _addToBag(context)
-                      : _addToBagQuantity(context, quantity);
+                  return stockAQuantiy != '0.00'
+                      ? quantity == 0
+                          ? _addToBag(context)
+                          : _addToBagQuantity(context, quantity, stockAQuantiy)
+                      : Text('Out of Stock');
                 },
               ),
             ],
@@ -91,13 +108,15 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Row _addToBagQuantity(BuildContext context, int quantity) {
+  Row _addToBagQuantity(
+      BuildContext context, int quantity, String stockQuantity) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
           onPressed: () {
             context.read<CartBloc>().add(UpdateCartQuantityEvent(
+                  stockQuantity: stockAQuantiy,
                   productName: productName,
                   quantity: quantity - 1,
                 ));
@@ -115,24 +134,41 @@ class ProductCard extends StatelessWidget {
             controller: TextEditingController(text: quantity.toString()),
             keyboardType: TextInputType.number,
             onSubmitted: (value) {
+              log(' stockQuantity: $stockQuantity');
+
+              int availableStock = int.parse(stockAQuantiy.split('.').first);
+
               final int? newQuantity = int.tryParse(value);
-              if (newQuantity != null && newQuantity > 0) {
-                context.read<CartBloc>().add(
-                      UpdateCartQuantityEvent(
-                        productName: productName,
-                        quantity: newQuantity,
-                      ),
-                    );
+              log(' message:${(newQuantity != null && newQuantity <= availableStock)}');
+              log(' message:$newQuantity $availableStock');
+              if (newQuantity != null && newQuantity <= availableStock) {
+                if (newQuantity != null && newQuantity > 0) {
+                  context.read<CartBloc>().add(
+                        UpdateCartQuantityEvent(
+                          productName: productName,
+                          stockQuantity: stockAQuantiy,
+                          quantity: newQuantity,
+                        ),
+                      );
+                }
+              } else {
+                ToastUtil.showLongToast('Out Of Stock');
               }
             },
           ),
         ),
         IconButton(
           onPressed: () {
-            context.read<CartBloc>().add(UpdateCartQuantityEvent(
-                  productName: productName,
-                  quantity: quantity + 1,
-                ));
+            int availableStock = int.parse(stockAQuantiy.split('.').first);
+            if (quantity + 1 <= availableStock) {
+              context.read<CartBloc>().add(UpdateCartQuantityEvent(
+                    stockQuantity: stockAQuantiy,
+                    productName: productName,
+                    quantity: quantity + 1,
+                  ));
+            } else {
+              ToastUtil.showLongToast('Out Of Stock');
+            }
           },
           icon: const Icon(Icons.add, color: Colors.red),
         ),
@@ -145,6 +181,7 @@ class ProductCard extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           context.read<CartBloc>().add(AddToCartEvent(
+                stockQuantity: stockAQuantiy,
                 productName: productName,
                 price: price,
                 imageUrl: imageUrl,

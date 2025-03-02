@@ -10,8 +10,10 @@ class AddToCartEvent extends CartEvent {
   final String price;
   final String imageUrl;
   final int quantity;
+  final String stockQuantity;
 
   AddToCartEvent({
+    required this.stockQuantity,
     required this.productName,
     required this.price,
     required this.imageUrl,
@@ -19,20 +21,23 @@ class AddToCartEvent extends CartEvent {
   });
 
   @override
-  List<Object?> get props => [productName, price, imageUrl, quantity];
+  List<Object?> get props =>
+      [productName, price, imageUrl, quantity, stockQuantity];
 }
 
 class UpdateCartQuantityEvent extends CartEvent {
   final String productName;
   final int quantity;
+  final String stockQuantity;
 
   UpdateCartQuantityEvent({
+    required this.stockQuantity,
     required this.productName,
     required this.quantity,
   });
 
   @override
-  List<Object?> get props => [productName, quantity];
+  List<Object?> get props => [productName, quantity, stockQuantity];
 }
 
 class RemoveFromCartEvent extends CartEvent {

@@ -48,7 +48,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       if (productResponse.isNotEmpty) {
         List<ProductResponse> filteredResponse = productResponse
             .where((prduct) =>
-                prduct.name?.toLowerCase().contains(event.queary) ?? false)
+                prduct.name
+                    ?.toLowerCase()
+                    .contains(event.queary.toLowerCase()) ??
+                false)
             .toList();
         emit(ProductFetchState(productResponse: filteredResponse));
       }

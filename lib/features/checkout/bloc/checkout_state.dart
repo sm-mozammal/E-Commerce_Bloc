@@ -5,18 +5,21 @@ class CartItem extends Equatable {
   final String price;
   final String imageUrl;
   final int quantity;
+  final String stockQuantity;
 
   const CartItem({
     required this.productName,
     required this.price,
     required this.imageUrl,
     required this.quantity,
+    required this.stockQuantity,
   });
 
   CartItem copyWith({
     int? quantity,
   }) {
     return CartItem(
+      stockQuantity: stockQuantity,
       productName: productName,
       price: price,
       imageUrl: imageUrl,
@@ -25,7 +28,8 @@ class CartItem extends Equatable {
   }
 
   @override
-  List<Object?> get props => [productName, price, imageUrl, quantity];
+  List<Object?> get props =>
+      [productName, price, imageUrl, quantity, stockQuantity];
 }
 
 abstract class CartState extends Equatable {
