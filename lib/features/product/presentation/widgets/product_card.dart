@@ -142,7 +142,7 @@ class ProductCard extends StatelessWidget {
               log(' message:${(newQuantity != null && newQuantity <= availableStock)}');
               log(' message:$newQuantity $availableStock');
               if (newQuantity != null && newQuantity <= availableStock) {
-                if (newQuantity != null && newQuantity > 0) {
+                if (newQuantity > 0) {
                   context.read<CartBloc>().add(
                         UpdateCartQuantityEvent(
                           productName: productName,
